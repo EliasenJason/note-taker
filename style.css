@@ -1,31 +1,31 @@
+/* areas of template */
 main {
   background-color: #e6f2f2;
   padding: 1%;
   height: 400px;
   width: auto;
-  height: 93vh;
+  height: 92vh;
   display: grid;
   grid-template-areas:
     "head desc"
-    "list desc"
-    "list crea";
+    "list desc";
   grid-template-columns: 10% 88%;
-  grid-template-rows: 8% 80% 8%;
+  grid-template-rows: 8% 88%;
   grid-gap: 2%;
-
 }
-
 #header {
   grid-area: head;
   background-color: white;
   font-size: .8vw;
 }
 #header h1 {
-/*figure out how to verticle align this h1 inside its container*/
+  height: auto;
+  text-align: center;
 }
 #listing {
   grid-area: list;
   background-color: white;
+  overflow: auto;
 }
 #description {
   grid-area: desc;
@@ -34,4 +34,26 @@ main {
 #create {
   grid-area: crea;
   background-color: white;
+}
+footer {
+  text-align: center;
+}
+
+/*styling for listing area */
+ul {
+  padding: 0;
+  margin: 0;
+}
+.list-item {
+  font-size: 1.2vw;
+  display: block;
+  border: solid black 1px;
+  list-style: none;
+  text-align: center;
+  height: 30px;
+  height: auto;
+}
+.list-item:hover {
+  background-color: lightgrey;
+  cursor: default;
 }
