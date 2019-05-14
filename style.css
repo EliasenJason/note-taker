@@ -1,0 +1,37 @@
+main {
+  background-color: #e6f2f2;
+  padding: 1%;
+  height: 400px;
+  width: auto;
+  height: 93vh;
+  display: grid;
+  grid-template-areas:
+    "head desc"
+    "list desc"
+    "list crea";
+  grid-template-columns: 10% 88%;
+  grid-template-rows: 8% 80% 8%;
+  grid-gap: 2%;
+
+}
+
+#header {
+  grid-area: head;
+  background-color: white;
+  font-size: .8vw;
+}
+#header h1 {
+/*figure out how to verticle align this h1 inside its container*/
+}
+#listing {
+  grid-area: list;
+  background-color: white;
+}
+#description {
+  grid-area: desc;
+  background-color: white;
+}
+#create {
+  grid-area: crea;
+  background-color: white;
+}
