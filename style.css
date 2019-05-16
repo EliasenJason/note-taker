@@ -57,3 +57,18 @@ ul {
   background-color: lightgrey;
   cursor: default;
 }
+
+/*style for popup window*/
+#popUp {
+  display: none;
+  position: fixed;
+  width: 500px;
+  height: 600px;
+  background-color: #e6f2f2;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  margin-left: -250px;
+  margin-top: -300px;
+
+}

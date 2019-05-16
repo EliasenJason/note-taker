@@ -12,7 +12,7 @@
       </div>
       <div id="listing">
         <ul>
-          <li class="list-item">620112</li>
+          <li class="list-item">Show All</li>
           <li class="list-item">632268</li>
           <li class="list-item">432216</li>
           <li class="list-item">title 2</li>
@@ -36,6 +36,25 @@
         <h3>coolant leak</h3>
       </div>
     </main>
+
+    <!-- pop up window for creating a new issue -->
+    <div id="popUp">
+      <p>Details</p>
+      <form>
+        <input type="text" name="Unit" id="unit" placeholder="Unit #"><br>
+        <label for="date">Date</label>
+        <input type="date" name="Date" id="date"><br>
+        <label for="department">Department to correct</label>
+        <select name="type" id="department">
+          <option value="operations">Operations</option>
+          <option value="mech">Mechanical</option>
+          <option value="etech">Electronic</option>
+          <option value="other">Other</option>
+        </select><br>
+        <textarea name="name" rows="30" cols="60" placeholder="Enter details here"></textarea><br>
+        <input type="submit" name="submit-button">
+      </form>
+    </div>
     <footer>Created By: Jason Eliasen</footer>
   </body>
 </html>
