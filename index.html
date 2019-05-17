@@ -4,11 +4,12 @@
     <meta charset="utf-8">
     <title>Note Taker</title>
     <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
   </head>
   <body>
     <main>
       <div id="header">
-        <button>Create new issue</button>
+        <button id="issueButton">Create new issue</button>
       </div>
       <div id="listing">
         <h3>Unit #</h3>
@@ -44,11 +45,12 @@
 
     <!-- pop up window for creating a new issue -->
     <div id="popUp">
-      <p>Details</p>
+      <p>Details</p><i class="fas fa-times"></i>
+      <div id="popUpCloseButton"></div>
       <form>
-        <input type="text" name="Unit" id="unit" placeholder="Unit #"><br>
+        <input type="text" name="Unit" id="unit" placeholder="Unit #" required><br>
         <label for="date">Date</label>
-        <input type="date" name="Date" id="date"><br>
+        <input type="date" name="Date" id="date" required><br>
         <label for="department">Department to correct</label>
         <select name="type" id="department">
           <option value="operations">Operations</option>
@@ -56,10 +58,11 @@
           <option value="etech">Electronic</option>
           <option value="other">Other</option>
         </select><br>
-        <textarea name="name" rows="30" cols="60" placeholder="Enter details here"></textarea><br>
+        <textarea name="name" rows="30" cols="60" placeholder="Enter details here" required></textarea><br>
         <input type="submit" name="submit-button">
       </form>
     </div>
     <footer>Created By: Jason Eliasen</footer>
   </body>
+  <script src="javascript.js"></script>
 </html>

@@ -71,9 +71,9 @@ ul {
 .item {
   min-height: 50px;
   list-style: none;
-  margin: 0;
+  margin-top: 10px;
   padding: 5px;
-  border: solid brown 1px;
+  border: solid black 1px;
   background-color: lightgrey;
 }
 .item li {
@@ -117,6 +117,16 @@ ul {
   flex-grow: .5;
 }
 /*style for popup window*/
+#popUp p {
+  display: inline-block;
+}
+#popUp .fa-times {
+  position: absolute;
+  top: 2px;
+  right: 5px;
+  color: red;
+}
+
 #popUp {
   display: none;
   position: fixed;
@@ -128,5 +138,5 @@ ul {
   left: 50%;
   margin-left: -250px;
   margin-top: -300px;
-
+  border: black solid 3px;
 }
