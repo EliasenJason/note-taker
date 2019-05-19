@@ -1,16 +1,21 @@
 let issues = [];
+const unitListing = [];
 
 const reloadUnitList = () => {
   document.querySelector("#unitList").innerHTML = "";
   issues.forEach(function(element) {
-    const unit = element.unitNumber;
+    if (!unitListing.includes(element.unitNumber)) {
+      unitListing.push(element.unitNumber);
+    }
+  })
+  unitListing.forEach(function(unit) {
     const liNodeToAdd = document.createElement("li");
     const textNodeToAdd = document.createTextNode(unit);
     liNodeToAdd.appendChild(textNodeToAdd);
     liNodeToAdd.classList.add("list-item");
-    console.log(liNodeToAdd);
     document.querySelector("#unitList").appendChild(liNodeToAdd);
   })
+  //need to make event handler for each item in unitlist to populate description area
 }
 
 //create new issue button on main page
@@ -18,7 +23,9 @@ const openPopUpButton = document.querySelector('#issueButton');
 //button to open up the popUp
 openPopUpButton.addEventListener("click", function() {
     document.querySelector('#popUp').style.display = 'block';
-    console.log(issues);
+    document.querySelector('#unit').value = "";
+    document.querySelector('#date').value = "";
+    document.querySelector('#issueText').value = "";
 })
 
 //close button within popUp
