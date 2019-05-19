@@ -13,7 +13,7 @@
       </div>
       <div id="listing">
         <h3>Unit #</h3>
-        <ul>
+        <ul id="unitList">
           <li class="list-item">Show All</li>
           <li class="list-item">632268</li>
           <li class="list-item">432216</li>
@@ -48,9 +48,9 @@
       <p>Details</p><i class="fas fa-times"></i>
       <div id="popUpCloseButton"></div>
       <form>
-        <input type="text" name="Unit" id="unit" placeholder="Unit #" required><br>
+        <input type="text" name="Unit" id="unit" placeholder="Unit #"><br>
         <label for="date">Date</label>
-        <input type="date" name="Date" id="date" required><br>
+        <input type="date" name="Date" id="date"><br>
         <label for="department">Department to correct</label>
         <select name="type" id="department">
           <option value="operations">Operations</option>
@@ -58,7 +58,7 @@
           <option value="etech">Electronic</option>
           <option value="other">Other</option>
         </select><br>
-        <textarea name="name" rows="30" cols="60" placeholder="Enter details here" required></textarea><br>
+        <textarea name="name" rows="30" cols="60" placeholder="Enter details here" id="issueText"></textarea><br>
         <input type="submit" name="submit-button">
       </form>
     </div>
