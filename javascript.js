@@ -1,13 +1,65 @@
 let issues = [];
 const unitListing = [];
 
+const deleteCurrentItem = (deleteButton) => {
+  const elementToDelete = deleteButton.parentElement.ParentElement;
+  deleteButton.parentElement.parentElement.parentElement.removeChild(elementToDelete);
+}
+
 const reloadUnitList = () => {
+  //clear the li items
   document.querySelector("#unitList").innerHTML = "";
+  //check all unit numbers in issues array and push them into unitListing array without duplicates
   issues.forEach(function(element) {
     if (!unitListing.includes(element.unitNumber)) {
       unitListing.push(element.unitNumber);
     }
   })
+  //create show all li
+  const liNodeToAdd = document.createElement("li");
+  const textNodeToAdd = document.createTextNode("Show All");
+  liNodeToAdd.appendChild(textNodeToAdd);
+  liNodeToAdd.classList.add("list-item");
+  liNodeToAdd.id = "showAll";
+  document.querySelector("#unitList").appendChild(liNodeToAdd);
+  //create event listener for on click of show all li
+  document.querySelector('#showAll').addEventListener("click", function() {
+    document.querySelector("#description").innerHTML = "";
+    issues.forEach(function(object) {
+      const showAllUl = document.createElement("ul");
+      showAllUl.classList.add("item");
+      const showAllLiUnitNumber = document.createElement("li");
+      showAllLiUnitNumber.classList.add("itemNumber");
+      showAllLiUnitNumber.appendChild(document.createTextNode(object.unitNumber));
+      const showAllLiDescription = document.createElement("li");
+      showAllLiDescription.classList.add("itemDescription");
+      showAllLiDescription.appendChild(document.createTextNode(object.issueText));
+      const showAllLiItemDate = document.createElement("li");
+      showAllLiItemDate.classList.add("itemDate");
+      showAllLiItemDate.appendChild(document.createTextNode(object.date));
+      const showAllLiItemOptions = document.createElement("li");
+      showAllLiItemOptions.classList.add("itemOptions");
+      const showAllLiItemOptionsDeleteButton = document.createElement("div");
+      showAllLiItemOptionsDeleteButton.classList.add("deleteItem");
+      const showAllLiItemOptionsDeleteButtonText = "Delete";
+      showAllLiItemOptionsDeleteButton.appendChild(document.createTextNode(showAllLiItemOptionsDeleteButtonText));
+      showAllLiItemOptions.appendChild(showAllLiItemOptionsDeleteButton);
+
+      console.log(showAllLiUnitNumber,showAllLiDescription,showAllLiItemDate,showAllLiItemOptions);
+      showAllUl.appendChild(showAllLiUnitNumber);
+      showAllUl.appendChild(showAllLiDescription);
+      showAllUl.appendChild(showAllLiItemDate);
+      showAllUl.appendChild(showAllLiItemOptions);
+      document.querySelector("#description").appendChild(showAllUl);
+    })
+  })
+  //add eventlistener for deleting items from list and from issues array
+  /*
+  document.getElementsByClassName("deleteItem").addEventListener("click", function() {
+
+  })
+  */
+  //create a list item from unitListing array
   unitListing.forEach(function(unit) {
     const liNodeToAdd = document.createElement("li");
     const textNodeToAdd = document.createTextNode(unit);
@@ -15,7 +67,7 @@ const reloadUnitList = () => {
     liNodeToAdd.classList.add("list-item");
     document.querySelector("#unitList").appendChild(liNodeToAdd);
   })
-  //need to make event handler for each item in unitlist to populate description area
+  //*TO DO* need to make event handler for each item in unitlist to populate description area
 }
 
 //create new issue button on main page
