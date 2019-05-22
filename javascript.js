@@ -1,104 +1,63 @@
-let issues = [];
-const unitListing = [];
+//***GLOBAL VARIABLES***
+const issues = [];
 
-const deleteCurrentItem = (deleteButton) => {
-  const elementToDelete = deleteButton.parentElement.ParentElement;
-  deleteButton.parentElement.parentElement.parentElement.removeChild(elementToDelete);
-}
-
-const reloadUnitList = () => {
-  //clear the li items
-  document.querySelector("#unitList").innerHTML = "";
-  //check all unit numbers in issues array and push them into unitListing array without duplicates
-  issues.forEach(function(element) {
-    if (!unitListing.includes(element.unitNumber)) {
-      unitListing.push(element.unitNumber);
-    }
-  })
-  //create show all li
-  const liNodeToAdd = document.createElement("li");
-  const textNodeToAdd = document.createTextNode("Show All");
-  liNodeToAdd.appendChild(textNodeToAdd);
-  liNodeToAdd.classList.add("list-item");
-  liNodeToAdd.id = "showAll";
-  document.querySelector("#unitList").appendChild(liNodeToAdd);
-  //create event listener for on click of show all li
-  document.querySelector('#showAll').addEventListener("click", function() {
-    document.querySelector("#description").innerHTML = "";
-    issues.forEach(function(object) {
-      const showAllUl = document.createElement("ul");
-      showAllUl.classList.add("item");
-      const showAllLiUnitNumber = document.createElement("li");
-      showAllLiUnitNumber.classList.add("itemNumber");
-      showAllLiUnitNumber.appendChild(document.createTextNode(object.unitNumber));
-      const showAllLiDescription = document.createElement("li");
-      showAllLiDescription.classList.add("itemDescription");
-      showAllLiDescription.appendChild(document.createTextNode(object.issueText));
-      const showAllLiItemDate = document.createElement("li");
-      showAllLiItemDate.classList.add("itemDate");
-      showAllLiItemDate.appendChild(document.createTextNode(object.date));
-      const showAllLiItemOptions = document.createElement("li");
-      showAllLiItemOptions.classList.add("itemOptions");
-      const showAllLiItemOptionsDeleteButton = document.createElement("div");
-      showAllLiItemOptionsDeleteButton.classList.add("deleteItem");
-      const showAllLiItemOptionsDeleteButtonText = "Delete";
-      showAllLiItemOptionsDeleteButton.appendChild(document.createTextNode(showAllLiItemOptionsDeleteButtonText));
-      showAllLiItemOptions.appendChild(showAllLiItemOptionsDeleteButton);
-
-      console.log(showAllLiUnitNumber,showAllLiDescription,showAllLiItemDate,showAllLiItemOptions);
-      showAllUl.appendChild(showAllLiUnitNumber);
-      showAllUl.appendChild(showAllLiDescription);
-      showAllUl.appendChild(showAllLiItemDate);
-      showAllUl.appendChild(showAllLiItemOptions);
-      document.querySelector("#description").appendChild(showAllUl);
-    })
-  })
-  //add eventlistener for deleting items from list and from issues array
-  /*
-  document.getElementsByClassName("deleteItem").addEventListener("click", function() {
-
-  })
-  */
-  //create a list item from unitListing array
-  unitListing.forEach(function(unit) {
-    const liNodeToAdd = document.createElement("li");
-    const textNodeToAdd = document.createTextNode(unit);
-    liNodeToAdd.appendChild(textNodeToAdd);
-    liNodeToAdd.classList.add("list-item");
-    document.querySelector("#unitList").appendChild(liNodeToAdd);
-  })
-  //*TO DO* need to make event handler for each item in unitlist to populate description area
-}
-
-//create new issue button on main page
-const openPopUpButton = document.querySelector('#issueButton');
-//button to open up the popUp
-openPopUpButton.addEventListener("click", function() {
-    document.querySelector('#popUp').style.display = 'block';
-    document.querySelector('#unit').value = "";
-    document.querySelector('#date').value = "";
-    document.querySelector('#issueText').value = "";
+//***MAIN SCREEN***
+//Event listener for create new issue button
+document.querySelector('#issueButton').addEventListener("click", function() {
+  document.querySelector('#popUp').style.display = 'block';
+  document.querySelector('#unit').value = "";
+  document.querySelector('#date').value = "";
+  document.querySelector('#issueText').value = "";
 })
+//Event listener for show all issueButton
+document.querySelector('#showAll').addEventListener("click", function() {
+  issues.forEach(function(object) {
+    document.querySelector('#description').innerHTML = "";
+    document.querySelector('#description').appendChild(object.constructHTML());
+  })
+})
+//Event listener for individual unitList ***TODO***
 
-//close button within popUp
-const popUpCloseButton = document.querySelector('.fa-times');
-//button to close the popup if you don't want to fill it out
-popUpCloseButton.addEventListener("click", function () {
+//***POPUP CREATE NEW ISSUE***
+//Event listener for closing new issue popup window
+document.querySelector('.fa-times').addEventListener("click", function() {
   document.querySelector('#popUp').style.display = 'none';
 })
-
-//submit button on popup
-const form = document.querySelector('form');
-
-form.addEventListener("submit", function(event) {
+//Event listener for submit button of form (create an issue object with method to return html and push it into issues global variable)
+//***TODO*** need to add clearing than appending list items for individual units
+document.querySelector('form').addEventListener("submit", function (event) {
   event.preventDefault();
   const issueObject = {
     unitNumber: document.querySelector('#unit').value,
     date: document.querySelector('#date').value,
     department: document.querySelector('#department').value,
     issueText: document.querySelector('#issueText').value,
+    constructHTML() {
+      const ul = document.createElement("ul");
+        ul.classList.add("item");
+      const liUnitNumber = document.createElement("li");
+        liUnitNumber.classList.add("itemNumber");
+        liUnitNumber.appendChild(document.createTextNode(this.unitNumber));
+      const liItemDescription = document.createElement("li");
+        liItemDescription.classList.add("itemDescription");
+        liItemDescription.appendChild(document.createTextNode(this.issueText));
+      const liItemDate = document.createElement("li");
+        liItemDate.classList.add("itemDate");
+        liItemDate.appendChild(document.createTextNode(this.date));
+      const liItemOptions = document.createElement("li");
+        liItemOptions.classList.add("itemOptions");
+      const deleteButton = document.createElement("div");
+        deleteButton.classList.add("deleteItem");
+        deleteButton.appendChild(document.createTextNode("Delete"));
+      liItemOptions.appendChild(deleteButton);
+      ul.appendChild(liUnitNumber);
+      ul.appendChild(liItemDescription);
+      ul.appendChild(liItemDate);
+      ul.appendChild(liItemOptions);
+      return ul;
+    }
   };
   issues.push(issueObject);
   document.querySelector('#popUp').style.display = 'none';
-  reloadUnitList();
+  console.log(issues);
 })
