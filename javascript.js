@@ -1,6 +1,24 @@
+/*
+To Do list:
+-have something show in main area instantly upon adding issues
+-delete items
+*/
+
+
 //***GLOBAL VARIABLES***
 const issues = [];
-
+const individualUnit = [];
+const populateUnitList = () => {
+  const showAllItem = document.querySelector('#showAll');
+  document.querySelector('#unitList').innerHTML = "";
+  document.querySelector('#unitList').appendChild(showAllItem);
+  individualUnit.forEach(function(unitNumber) {
+    const unitItem = document.createElement("li");
+    unitItem.classList.add("list-item");
+    unitItem.appendChild(document.createTextNode(unitNumber));
+    document.querySelector("#unitList").appendChild(unitItem);
+  })
+}
 //***MAIN SCREEN***
 //Event listener for create new issue button
 document.querySelector('#issueButton').addEventListener("click", function() {
@@ -11,20 +29,28 @@ document.querySelector('#issueButton').addEventListener("click", function() {
 })
 //Event listener for show all issueButton
 document.querySelector('#showAll').addEventListener("click", function() {
+  document.querySelector('#description').innerHTML = "";
   issues.forEach(function(object) {
-    document.querySelector('#description').innerHTML = "";
     document.querySelector('#description').appendChild(object.constructHTML());
   })
 })
-//Event listener for individual unitList ***TODO***
-
+//Event listener for individual unitList
+document.addEventListener('click', function(event) {
+  if (event.target.classList.contains('list-item')) {
+    document.querySelector("#description").innerHTML = "";
+    issues.forEach(function(object) {
+      if (event.target.innerText === object.unitNumber) {
+        document.querySelector("#description").appendChild(object.constructHTML())
+      }
+    });
+  }
+});
 //***POPUP CREATE NEW ISSUE***
 //Event listener for closing new issue popup window
 document.querySelector('.fa-times').addEventListener("click", function() {
   document.querySelector('#popUp').style.display = 'none';
 })
 //Event listener for submit button of form (create an issue object with method to return html and push it into issues global variable)
-//***TODO*** need to add clearing than appending list items for individual units
 document.querySelector('form').addEventListener("submit", function (event) {
   event.preventDefault();
   const issueObject = {
@@ -58,6 +84,15 @@ document.querySelector('form').addEventListener("submit", function (event) {
     }
   };
   issues.push(issueObject);
+  issues.forEach(function(object) {
+    if (!individualUnit.includes(object.unitNumber)) {
+      individualUnit.push(object.unitNumber);
+    }
+  })
+  populateUnitList();
+  document.querySelector('#description').innerHTML = "";
+  issues.forEach(function(object) {
+    document.querySelector('#description').appendChild(object.constructHTML());
+  })
   document.querySelector('#popUp').style.display = 'none';
-  console.log(issues);
 })
