@@ -1,9 +1,7 @@
 /*
 To Do list:
-
+complete!
 */
-
-
 //***GLOBAL VARIABLES***
 //list of all issues
 const issues = [];

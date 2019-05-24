@@ -72,7 +72,7 @@ ul {
   height: auto;
   margin: 0;
 }
-.list-item:hover {
+.list-item:hover, #showAll:hover {
   background-color: lightgrey;
   cursor: default;
 }
