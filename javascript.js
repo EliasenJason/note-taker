@@ -1,17 +1,25 @@
 /*
 To Do list:
--have something show in main area instantly upon adding issues
--delete items
+
 */
 
 
 //***GLOBAL VARIABLES***
+//list of all issues
 const issues = [];
-const individualUnit = [];
+//list of individual unit numbers
+let individualUnit = [];
+//function to populate the unit list with showall button at the top
 const populateUnitList = () => {
   const showAllItem = document.querySelector('#showAll');
   document.querySelector('#unitList').innerHTML = "";
   document.querySelector('#unitList').appendChild(showAllItem);
+  individualUnit = [];
+  issues.forEach(function(object) {
+    if (!individualUnit.includes(object.unitNumber)) {
+      individualUnit.push(object.unitNumber);
+    }
+  })
   individualUnit.forEach(function(unitNumber) {
     const unitItem = document.createElement("li");
     unitItem.classList.add("list-item");
@@ -34,7 +42,7 @@ document.querySelector('#showAll').addEventListener("click", function() {
     document.querySelector('#description').appendChild(object.constructHTML());
   })
 })
-//Event listener for individual unitList
+//Event listener for individual unitList and delete button of items
 document.addEventListener('click', function(event) {
   if (event.target.classList.contains('list-item')) {
     document.querySelector("#description").innerHTML = "";
@@ -44,13 +52,30 @@ document.addEventListener('click', function(event) {
       }
     });
   }
+  else if (event.target.classList.contains("deleteItem")) {
+    const liToDelete = event.target.parentElement.parentElement;
+    const itemNumberToDelete = liToDelete.querySelector('.itemNumber').innerText;
+    const itemDescriptionToDelete = liToDelete.querySelector('.itemDescription').innerText;
+    const itemDateToDelete = liToDelete.querySelector('.itemDate').innerText;
+    for (let i = 0; i < issues.length; i++) {
+      if (issues[i].unitNumber === itemNumberToDelete &&
+          issues[i].date === itemDateToDelete &&
+          issues[i].issueText === itemDescriptionToDelete) {
+        liToDelete.parentNode.removeChild(liToDelete);
+        issues.splice(i, 1);
+        populateUnitList();
+        break;
+      }
+    }
+  }
 });
 //***POPUP CREATE NEW ISSUE***
 //Event listener for closing new issue popup window
 document.querySelector('.fa-times').addEventListener("click", function() {
   document.querySelector('#popUp').style.display = 'none';
 })
-//Event listener for submit button of form (create an issue object with method to return html and push it into issues global variable)
+//Event listener for submit button of form (create an issue object with method to return html, push it into issues global variable,
+//populate individualUnit global and populate description area with same functionality as show all button)
 document.querySelector('form').addEventListener("submit", function (event) {
   event.preventDefault();
   const issueObject = {
@@ -84,11 +109,6 @@ document.querySelector('form').addEventListener("submit", function (event) {
     }
   };
   issues.push(issueObject);
-  issues.forEach(function(object) {
-    if (!individualUnit.includes(object.unitNumber)) {
-      individualUnit.push(object.unitNumber);
-    }
-  })
   populateUnitList();
   document.querySelector('#description').innerHTML = "";
   issues.forEach(function(object) {
