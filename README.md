@@ -1,3 +1,3 @@
 # note-taker
 
-This is my first project using vanilla javascript.
+This is my first project using javascript.
